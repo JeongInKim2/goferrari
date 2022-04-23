@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
         <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/grids-responsive-min.css" />
-        <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
         <link rel="stylesheet" href="https://jeonginkim2.github.io/goferrari/Flat-HTML5-Palette-Color-Picker-For-jQuery-colorPick-js/src/colorPick.css">
         <!-- OPTIONAL DARK THEME -->
@@ -14,7 +14,7 @@
         <script type="text/javascript">
             $(document).ready(function() {
                 for (i = 1; i < 46; i++) {
-                    $('.pure-g#list').append('<div class="pure-u-1 pure-u-md-1-5"><label for="n' + i + '" onclick="addTo(' + i + ')">' + i + '</label><input type="number" id="n' + i + '" class="pure-u-1" value="0"/></div>');
+                    $('.pure-g#list').append('<div class="pure-u-md-1-5"><label id="lbl" for="n' + i + '" onclick="addTo(' + i + ')">' + i + '</label><input type="number" id="n' + i + '" class="pure-u-1" value="0"/></div>');
                 }
                 for (i = 1; i < 8; i++) {
                     $('.pure-g#result').append('<span id="r' + i + '"/>');
@@ -30,11 +30,19 @@
                 });
                 $('.pure-g#list input#n' + n).removeAttr('disabled');
                 $('.pure-g#result span').each(function() {
+                    if ($(this).text() == n)
+                        return false;
+                
                     if ($(this).text() == "") {
                         $(this).text(n);
                         return false;
                     }
                 });
+            }
+            
+            function fnClear() {
+                $('form')[0].reset();
+                $('.pure-g#list input').removeAttr('disabled');
             }
 
         </script>
@@ -69,16 +77,14 @@
                     <div class="pure-g pure-u-1" id="result">
                     </div>
                 </fieldset>
-                <button type="reset" class="pure-button pure-button-primary">다시하기</button>
+                <button type="button" class="pure-button pure-button-primary" onclick="fnClear()">다시하기</button>
             </fieldset>
         </form>
-    </body>
-
-    <div class="colorPickSelector"></div>
+<label>aa</label>
     <script src="https://jeonginkim2.github.io/goferrari/Flat-HTML5-Palette-Color-Picker-For-jQuery-colorPick-js/src/colorPick.js"></script>
-
     <script>
-        $(".colorPickSelector").colorPick();
+        $('.pure-g#list').find('label#lbl').colorPick();
     </script>
 
+    </body>
 </html>
